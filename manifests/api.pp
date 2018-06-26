@@ -135,6 +135,12 @@
 #    properties.
 #   Defaults to $::os_service_default.
 #
+# [*filesystem_store_metadata_file*]
+#   (optional) The path to a file which contains the metadata to be returned
+#    with any location associated with the filesystem store
+#    properties.
+#   Defaults to $::os_service_default.
+#
 # [*location_strategy*]
 #   (optional) Strategy used to determine the image location order.
 #   Defaults to $::os_service_default.
@@ -322,6 +328,7 @@ class glance::api(
   $log_facility                         = undef,
   $show_image_direct_url                = $::os_service_default,
   $show_multiple_locations              = $::os_service_default,
+  $filesystem_store_metadata_file       = $::os_service_default,
   $location_strategy                    = $::os_service_default,
   $purge_config                         = false,
   $cert_file                            = $::os_service_default,
@@ -413,6 +420,7 @@ class glance::api(
     'DEFAULT/limit_param_default':     value => $limit_param_default;
     'DEFAULT/api_limit_max':           value => $api_limit_max;
     'glance_store/os_region_name':     value => $os_region_name;
+    'glance_store/filesystem_store_metadata_file': value => $filesystem_store_metadata_file;
   }
 
   # task/taskflow_executor config.
