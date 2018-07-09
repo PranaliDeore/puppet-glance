@@ -135,6 +135,16 @@
 #    properties.
 #   Defaults to $::os_service_default.
 #
+# [*filesystem_store_metadata_file*]
+#   (optional) The path to a file which contains the metadata to be returned
+#    with any location associated with the filesystem store
+#    properties.
+#   Defaults to $::os_service_default.
+#
+# [*filesystem_store_file_perm*]
+#   (optional) File access permissions for the image files.
+#   Defaults to $::os_service_default.
+#
 # [*location_strategy*]
 #   (optional) Strategy used to determine the image location order.
 #   Defaults to $::os_service_default.
@@ -322,6 +332,8 @@ class glance::api(
   $log_facility                         = undef,
   $show_image_direct_url                = $::os_service_default,
   $show_multiple_locations              = $::os_service_default,
+  $filesystem_store_metadata_file       = $::os_service_default,
+  $filesystem_store_file_perm           = $::os_service_default,
   $location_strategy                    = $::os_service_default,
   $purge_config                         = false,
   $cert_file                            = $::os_service_default,
@@ -395,24 +407,26 @@ class glance::api(
 
   # basic service config
   glance_api_config {
-    'DEFAULT/bind_host':               value => $bind_host;
-    'DEFAULT/bind_port':               value => $bind_port;
-    'DEFAULT/backlog':                 value => $backlog;
-    'DEFAULT/workers':                 value => $workers;
-    'DEFAULT/show_image_direct_url':   value => $show_image_direct_url;
-    'DEFAULT/show_multiple_locations': value => $show_multiple_locations;
-    'DEFAULT/location_strategy':       value => $location_strategy;
-    'DEFAULT/scrub_time':              value => $scrub_time;
-    'DEFAULT/delayed_delete':          value => $delayed_delete;
-    'DEFAULT/image_cache_dir':         value => $image_cache_dir;
-    'DEFAULT/enabled_import_methods':  value => $enabled_import_methods_real;
-    'DEFAULT/node_staging_uri':        value => $node_staging_uri;
-    'DEFAULT/image_member_quota':      value => $image_member_quota;
-    'DEFAULT/enable_v1_api':           value => $enable_v1_api;
-    'DEFAULT/enable_v2_api':           value => $enable_v2_api;
-    'DEFAULT/limit_param_default':     value => $limit_param_default;
-    'DEFAULT/api_limit_max':           value => $api_limit_max;
-    'glance_store/os_region_name':     value => $os_region_name;
+    'DEFAULT/bind_host':                      value => $bind_host;
+    'DEFAULT/bind_port':                      value => $bind_port;
+    'DEFAULT/backlog':                        value => $backlog;
+    'DEFAULT/workers':                        value => $workers;
+    'DEFAULT/show_image_direct_url':          value => $show_image_direct_url;
+    'DEFAULT/show_multiple_locations':        value => $show_multiple_locations;
+    'DEFAULT/filesystem_store_metadata_file': value => $filesystem_store_metadata_file;
+    'DEFAULT/filesystem_store_file_perm':     value => $filesystem_store_file_perm;
+    'DEFAULT/location_strategy':              value => $location_strategy;
+    'DEFAULT/scrub_time':                     value => $scrub_time;
+    'DEFAULT/delayed_delete':                 value => $delayed_delete;
+    'DEFAULT/image_cache_dir':                value => $image_cache_dir;
+    'DEFAULT/enabled_import_methods':         value => $enabled_import_methods_real;
+    'DEFAULT/node_staging_uri':               value => $node_staging_uri;
+    'DEFAULT/image_member_quota':             value => $image_member_quota;
+    'DEFAULT/enable_v1_api':                  value => $enable_v1_api;
+    'DEFAULT/enable_v2_api':                  value => $enable_v2_api;
+    'DEFAULT/limit_param_default':            value => $limit_param_default;
+    'DEFAULT/api_limit_max':                  value => $api_limit_max;
+    'glance_store/os_region_name':            value => $os_region_name;
   }
 
   # task/taskflow_executor config.
